@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends 'shop/base.html'%}
+{% load static%}
+{%block title%}
+    {{product.category.name}}
+{%endblock%}
 
-</body>
-</html>
+{% include 'shop/navbar.html'%}
+
+{%block content%}
+ <div class="container">
+    <div class="row">
+       <div style="margin-top: 4%;margin-left: 6%">
+           <div class="col-xs-4 item-photo">
+             <img src="{% if product.image%} {{product.image.url}} {%else%} {%static 'img/default.jpg'%} {%endif%}" style="height:250px; width:300px">
+           </div>
+       </div>
+       <div class="col-xs-5" style="margin-top:4%">
+            <h3 style="text-transform: capitalize">{{product.name}}</h3>
+            <br>
+            <h6 style="text-transform: capitalize">
+              <a href="{{ product.category.get_absolute_url}}">{{product.category.name}}</a>
+            </h6>
+            <br>
+            <p class="text-muted">Rs. {{ product.price }}</p>
+           <br><h4>Product Description</h4>
+            <p>{{ product.description|safe|linebreaksbr }}</p>
+       </div>
+    </div>
+ </div>
+
+
+{%endblock%}
+
